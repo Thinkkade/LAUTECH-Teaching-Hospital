@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="img/season-change.jpg" type="image/x-icon">
+		<title>LTH</title>
+
+	    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+	    <!-- <link href='http://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
+	    <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,500,700' rel='stylesheet' type='text/css'> -->
+	    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+	    <link href='http://fonts.googleapis.com/css?family=Dosis:300,400,500,600' rel='stylesheet' type='text/css'>
+	    
+		
+		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+         <script type="text/javascript" src="Library/jquery-1.8.2.js">
+		</script>
+        <script type="text/javascript" src="Library/jquery-ui.js">
+		</script>
+		 <script type="text/javascript">
+		function submit_to_db()
+		{
+			var name1 = document.getElementById("name").value ;
+			var email1 = document.getElementById("email").value ;
+			var appoint1 = document.getElementById("appoint").value ;
+			var number1 = document.getElementById("number").value ;
+			var pro1 = document.getElementById("pro").value ;
+			var captcha1 = document.getElementById("captcha").value ;
+			$.post("processingform.php",{name:name1,email:email1,appoint:appoint1,numba:number1,pro:pro1,captcha:captcha1},function(data){
+				alert(data) ;				
+				});			
+		}
+		
+		
+					var pat =/^[a-zA-Z]*\s{1}[a-zA-Z]*$/;
+					
+		function messagecolor(msg,msgloc,col)
+		{
+			document.getElementById(msgloc).innerHTML=msg;
+			document.getElementById(msgloc).style.color=col;
+		
+		}
+		
+		function validatename()
+		{
+			var n = document.getElementById("name").value;
+			if(n.lenght=0)
+			{
+				messagecolor("Surname Firstname Required","namelabel","red");
+				return false;
+			}
+		else if(!n.match(pat))
+			{
+			messagecolor("e.g (Adetoun Moses)","namelabel","red");
+			return false;
+			}
+		else
+			{
+				messagecolor("Valid input","namelabel","green");
+				return true;
+			
+			}
+		}
+		
+		function validateemail()
+		{
+			var email = document.getElementById("email").value;
+				if(email.length == 0)
+				{
+					messagecolor("Email Required","emaillabel","red");
+					return false;
+				}
+				else
+				{
+					var epat = /^[a-zA-Z0-9]*@(yahoo|gmail|justice|hotmail)\.(com|co.uk|.com.ng)$/;
+					if (!email.match(epat))
+					{
+						messagecolor("Invalid Email Format","emaillabel","red");
+						return false;
+					}
+					else
+					{
+						messagecolor("Valid Email","emaillabel","green");
+						return true;
+					}
+						
+					
+				}
+		}
+				
+		function validateappoint()
+		{		
+			/*var months = ["jan","feb","march","april","may","june","july","august","september","october","december"]
+		var mon = d.getMonth();
+		var day = d.getDay();
+		var days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+		var date = d.getDate();
+		var txt = dayz+[day]+ "/" +date+ "/" +months+[mon]+ "/" +yr;
+			var apoint = document.getElementById("appoint").value = txt;
+				
+				if(apoint.lenght == 0)
+				{
+					messagecolor("No appointment","appointlabel","red");
+						return false;
+				}
+				else if(!apoint)
+				{
+					messagecolor("Appointment must be in date format","appointlabel","red");
+						return false;
+				}
+				else
+				{
+					messagecolor("Valid appointment","appointlabel","green");
+						return true;
+				}*/
+				var apoint = document.getElementById("appoint").value;
+				if(apoint.length == 0)
+				{
+					messagecolor("Email Required","appointlabel","red");
+					return false;
+				}
+				else
+				{
+					var epat = /^[0-9]{1,2}(-)(1|01|2|02|3|03|4|04|5|05|6|06|7|07|8|08|9|09|10|11|12)(-)[0-9]{4}$/;
+					if (!apoint.match(epat))
+					{
+						messagecolor("Use dd-mm-yyyy","appointlabel","red");
+						return false;
+					}
+					else
+					{
+						messagecolor("Valid Date Format","appointlabel","green");
+						return true;
+					}
+						
+					
+				}
+				
+		}
+		
+		function validatephone()
+		{
+			var phone = document.getElementById("number").value;
+			var p_pat = /^[0-9]{11}$/
+				if(phone.lenght == 0)
+				{
+					messagecolor("Invalid Number","phonelabel","red");
+						return false;
+				}
+				else if(!phone.match(p_pat))
+				{
+					messagecolor("11 Digit Required","phonelabel","red");
+						return false;
+				}
+				else
+				{
+					messagecolor("Valid number","phonelabel","green");
+						return true;
+				}
+				
+		}
+		
+		function validatepro()
+		{
+			var wahala = document.getElementById("pro").value;
+			var p =/^[a-zA-Z]+$/
+			
+				if( wahala.length == 0)
+				{
+					messagecolor("Please indicate your problem","prolabel","red");
+						return false;
+				}
+				else
+				{
+					
+					var e = /[^A-Za-z]*$/g ;
+					if (!e.test(wahala))
+					{
+						messagecolor("Invalid Problem Format","prolabel","red");
+						return false;
+					}
+					else
+					{
+						messagecolor("perfect","prolabel","green");
+						return true;
+					}
+					
+				}
+		}
+			
+		
+		function validateupload()
+		{
+			if(validatename() && validateemail() && validatephone() && validatepro())
+			{
+				submit_to_db() ;
+			}
+			else
+			{
+				alert("Incorrect Info");
+			}
+			
+		}
+		
+		
+		
+		
+		</script>
+	</head>
+
+	<body>
+		<section class= "navs">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  				<div class="container-fluid">
+    				<!-- Brand and toggle get grouped for better mobile display -->
+    				<div class="navbar-header">
+      					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+	      				</button>
+                        <a class="navbar-brand" href="#"><img src="assets/img/logo.png"></a>
+	    			</div>
+
+                 <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				    	<ul class="nav navbar-nav navbar-right">
+					        <li><a href="index.html">Home</a></li>
+					        <li><a href="services.html">Services</a></li>
+					        <li><a href="Management.html">Management</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="news.html">News</a></li>
+							<li><a href="faq.html">FAQs</a></li>
+							<li><a href="gallery.html">Gallery</a></li>
+							<li class="active"><a href="#">Contact Us</a></li>
+				      	</ul>
+				    </div><!-- /.navbar-collapse -->
+				</div><!-- /.container-fluid -->
+			</nav>
+		</section>
+
+		<section class="contact-title text-center">
+			<div class="contact-wrapper">
+				<div class="container">
+					<div class= "row">
+						<div>
+							<h1 class="headline">Contact us</h1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="sub-headline">
+						
+						</div>
+					</div>	
+				</div>
+			</div>
+		</section>
+
+
+		<section class="contact-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="google-map">
+							<div id="map-canvas"></div>
+						</div>
+						<div class="quick-contact">
+							<h3>Quick Contact</h3>
+							<hr>
+							<div class="row">
+								<div class="col-md-6">
+									<p>
+										<i class="fa fa-home"></i> 
+										<span>Full Address:</span> 
+										P.M.B 4007, Ogbomoso-Ilorin road General, Ogbomoso, Oyo State.
+									</p>
+								</div>
+								<div class="col-md-6">
+									<p>
+										<i class="fa fa-phone"></i>
+										<span>Cell No:</span>
+										 08033338060
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<p>
+										<i class="fa fa-fax"></i> 
+										<span>Email Address</span>
+										lthogbomoso@gmail.com
+									</p>
+								</div>
+								<div class="col-md-6">
+									<p>
+										<i class="fa fa-ambulance"></i>
+										<span>Ambulance:</span>
+										 07018876323
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class= "appointment">
+							
+		                    <div class="header text-center">
+		                        <h2>Contact Us</h2>
+		                       	<a href="#" class="number">
+		                       		<i class="fa fa-phone fa-fw"></i>
+									 08033338060
+		                       	</a>
+		                        <span class="or">OR</span>
+		                    </div>
+
+							<!-- form of appointment -->
+							<div class="row">
+								<form method="post" action="processingform.php" name="form">
+									<div class= "form">
+										<div class="input-group margin-bottom-sm col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+					                    <input class="form-control" type="text" placeholder="Full Name *"  id="name" name="name" onKeyUp="validatename()"><label id="namelabel"></label>
+										</div>
+										<div class="input-group margin-bottom-sm col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+										 <input class="form-control" type="text" placeholder="Email Address *"  id="email" name="email" onKeyUp="validateemail()"><label id="emaillabel"></label>
+										</div>
+										<div class="input-group margin-bottom-sm col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+										 	
+                                       <input class="form-control" type="text" placeholder="Appointment Date *"  id="appoint" name="appoint"
+                                       onKeyUp="validateappoint()"><label id="appointlabel"></label>
+										</div>
+										<div class="input-group margin-bottom-sm col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+										 <input class="form-control" type="text" placeholder="Mobile Number *"  id="number" name="numba" onKeyUp="validatephone()">
+                                         <label id="phonelabel"></label>
+										</div>
+									</div>
+									<div class="input-group margin-bottom-sm col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+							         <textarea class="form-control" rows="6" placeholder="Your Problem *"  id="pro" name="pro"
+                                     onKeyUp="validatepro()"></textarea>
+                                     <label id="prolabel"></label>
+									</div>
+									<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+										<div class="captcha-container">
+		                                    <label>Are you human? </label><br/>
+		                                    <img src="http://inspirythemesdemo.com/healthpress/wp-content/themes/healthpress-theme/captcha/captcha.php" alt="">
+		                                    <input type="text" class="captcha required" id="captcha" name="captcha" maxlength="5" title=" Please enter the code characters displayed in image!" onKeyUp="validatehuman()"><label id="humanlabel"></label>
+		                                </div>
+                                        <button class="btn btn-primary send" type="button" id="upload" name="upload" onclick="validateupload()">Submit</button>
+								</div>
+								</form>
+							</div>
+							<!-- end of form -->
+						</div><!-- end of appointment-->
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<ul class="text-center contact">
+				        	<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Share in Facebook" class="facebook"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Share in Twitter" class="twitter"><i class="fa fa-twitter"></i></a>
+							</li>
+							<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Share in Google +" class="google-plus"><i class="fa fa-google-plus"></i></a>
+							</li>
+							<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Share in Instagram" class="instagram"><i class="fa fa-instagram"></i></a>
+							</li>
+							<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Share in Pinterest" class="pinterest"><i class="fa fa-pinterest"></i></a>
+							</li>
+							<li class= "socials-icons">
+								<a href="#" data-toggle="tooltip" title="Connect with Skype" class="skype"><i class="fa fa-skype"></i></a>
+							</li>
+				      	</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="copy-right-text text-center">
+							&copy; Copyright 2016 MIS Department
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/js/isotope.pkgd.min.js"></script>
+		<script type="text/javascript" src="assets/js/wow.min.js"></script>
+		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js"></script>
+		
+		<script>
+	      function initialize() {
+	        var mapCanvas = document.getElementById('map-canvas');
+	        var mapOptions = {
+	          center: new google.maps.LatLng(8.152973, 4.253565),
+	          zoom: 16,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        }
+	        var map = new google.maps.Map(mapCanvas, mapOptions)
+	      }
+	      google.maps.event.addDomListener(window, 'load', initialize);
+	    </script>
+
+		<script>
+      		new WOW().init();
+		</script>
+
+
+	</body>
+</html>
